@@ -16,7 +16,7 @@ class Index extends React.Component {
       console.log("welcomingButton was clicked");
     });
 
-    // 3. Dreate a title bar and pass in the button
+    // 3. Create a title bar and pass in the button
     var titleBarOptions = {
       title: "Home",
       buttons: {

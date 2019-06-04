@@ -1,5 +1,5 @@
-import { Layout, Page, Card } from "@shopify/polaris";
-import { Modal, Button } from "@shopify/app-bridge/actions";
+import { Layout, Page, Card, Button } from "@shopify/polaris";
+import { Modal } from "@shopify/app-bridge/actions";
 
 class Index extends React.Component {
   constructor(props) {
@@ -10,35 +10,15 @@ class Index extends React.Component {
   componentDidMount() {
     var app = this.props.app;
 
-    // 3. Add buttons
-    var goodButton = Button.create(app, { label: "Ok, cool." });
-    var badButton = Button.create(app, { label: "I don’t like it." });
-
     var modalOptions = {
       title: "Informative modal",
       message:
-        "Here’s some information I think you should know. What do you think?",
-      footer: {
-        buttons: {
-          primary: goodButton,
-          secondary: [badButton]
-        }
-      }
+        "Here’s some information I think you should know. What do you think?"
     };
     this.informativeModal = Modal.create(app, modalOptions);
-
-    // Subscribe to the buttons’ click events
-    goodButton.subscribe(Button.Action.CLICK, function() {
-      console.log("They are cool with it.");
-      informativeModal.dispatch(Modal.Action.CLOSE);
-    });
-
-    badButton.subscribe(Button.Action.CLICK, function() {
-      console.log("They didn’t like it.");
-      informativeModal.dispatch(Modal.Action.CLOSE);
-    });
   }
 
+  // 2. Dispatch the modal open event
   openModal() {
     this.informativeModal.dispatch(Modal.Action.OPEN);
   }

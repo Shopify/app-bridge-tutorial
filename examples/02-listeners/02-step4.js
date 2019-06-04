@@ -14,7 +14,7 @@ class Index extends React.Component {
     // 2. Subscribe to the button’s click event
     welcomingButton.subscribe(Button.Action.CLICK, welcomingButtonCallback);
 
-    // 3. Dreate a title bar and pass in the button
+    // 3. Create a title bar and pass in the button
     var titleBarOptions = {
       title: "Home",
       buttons: {
