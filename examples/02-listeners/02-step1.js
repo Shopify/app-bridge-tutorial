@@ -1,15 +1,15 @@
 import { Layout, Page, Card } from "@shopify/polaris";
-import { Toast } from "@shopify/app-bridge/actions";
+import { Button } from "@shopify/app-bridge/actions";
 
 class Index extends React.Component {
   componentDidMount() {
     var app = this.props.app;
 
-    var toastOptions = {
-      message: "Hi from App Bridge"
+    // 1. Create a button
+    var buttonOptions = {
+      label: "Welcome to my app"
     };
-    var welcomeMessage = Toast.create(app, toastOptions);
-    welcomeMessage.dispatch(Toast.Action.SHOW);
+    var welcomingButton = Button.create(app, buttonOptions);
   }
 
   render() {

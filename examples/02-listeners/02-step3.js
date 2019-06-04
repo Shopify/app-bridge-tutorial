@@ -1,5 +1,5 @@
 import { Layout, Page, Card } from "@shopify/polaris";
-import { Button, TitleBar, Toast } from "@shopify/app-bridge/actions";
+import { Button, TitleBar } from "@shopify/app-bridge/actions";
 
 class Index extends React.Component {
   componentDidMount() {
@@ -12,7 +12,9 @@ class Index extends React.Component {
     var welcomingButton = Button.create(app, buttonOptions);
 
     // 2. Subscribe to the button’s click event
-    welcomingButton.subscribe(Button.Action.CLICK, welcomingButtonCallback);
+    welcomingButton.subscribe(Button.Action.CLICK, function() {
+      console.log("welcomingButton was clicked");
+    });
 
     // 3. Dreate a title bar and pass in the button
     var titleBarOptions = {
@@ -22,29 +24,6 @@ class Index extends React.Component {
       }
     };
     var titleBar = TitleBar.create(app, titleBarOptions);
-
-    // 4. Update the button’s options
-    function welcomingButtonCallback() {
-      welcomingButton.set({
-        label: "Thinking...",
-        disabled: true
-      });
-
-      // 5. Show a toast message
-      setTimeout(function() {
-        var toastOptions = {
-          message: "Hi from App Bridge"
-        };
-        var welcomeMessage = Toast.create(app, toastOptions);
-        welcomeMessage.dispatch(Toast.Action.SHOW);
-
-        // and reset our button
-        welcomingButton.set({
-          label: "Welcome to my app",
-          disabled: false
-        });
-      }, 1000);
-    }
   }
 
   render() {

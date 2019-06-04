@@ -9,8 +9,12 @@ class Index extends React.Component {
 
       These options are invalid!
 
+      If you're using the development version of App Bridge,
+      you’ll see a detailed error message.
+
+      To use the development version:
+
       In package.json, add NODE_ENV=development to scripts.test
-      to use the development version of App Bridge.
 
       scripts: {
         ...
