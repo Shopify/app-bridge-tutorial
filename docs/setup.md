@@ -6,54 +6,59 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 
 ### Setup instructions
 
-1.  Ensure you have [Node.js](https://nodejs.org/en/download/) installed. You can check by running:
+1.  Ensure you have [Node.js](https://nodejs.org/en/download/) installed. Check your Node version by running:
 
-    ```shell
+    ```
     node -v
     ```
 
-    If it’s already installed, make sure that you’re using version 8.1.0 or later.
+    If Node is already installed, make sure that it’s version 8.1.0 or later.
 
 2.  Clone the `app-bridge-tutorial` repository:
 
-    ```shell
+    ```
     git clone git@github.com:Shopify/app-bridge-tutorial.git
     ```
 
 3.  Navigate into the `app-bridge-tutorial` folder and install dependencies using `npm`.
 
-    ```shell
+    ```
     npm install
     ```
 
-4.  Run the app locally. Visit <a href="http://localhost:3000">http://localhost:3000</a> to see the app. The app is not expecting to run like this, so you’ll see an error message:
+4.  Run the app locally:
 
     ```
     npm run dev
     ```
 
+    Visit <a href="http://localhost:3000">http://localhost:3000</a> to see the app. The app is not expecting to run like this, so you’ll see an error message:
+
     <img width="495" src="img/app-local.png">
 
 5.  Install [ngrok](https://ngrok.com). Using npm:
 
-    ```shell
+    ```
     npm install -g ngrok
     ```
+    
+    You can also install ngrok by [downloading a binary](https://ngrok.com/download).
 
-	> Note: some Mac users may experience a permissions error when running this command, because their global `node_modules` folder may not have correct permissions.
-	> Locate the path to the global `node_modules` folder by running:
-	>
-	> 	```
-	> 	npm root -g
-	> 	```
-	> 	
-	> 	Change the owner of the global `node_modules` folder to the current user:
-	> 	
-	> 	```
-	> 	sudo chown -R $(whoami) PATH TO GLOBAL NODE_MODULES FOLDER
-	> 	```
-	> 	
-	> 	You may be asked for your login password.
+    > Note: some Mac users may experience a permissions error installing ngrok using npm, because their global `node_modules` folder may not have correct permissions.
+    >
+    > Locate the path to the global `node_modules` folder by running:
+    >
+    > ```
+    > npm root -g
+    > ```
+    >
+    > Change the owner of the global `node_modules` folder to the current user:
+    >
+    > ```
+    > sudo chown -R $(whoami) PATH TO GLOBAL NODE_MODULES FOLDER
+    > ```
+    >
+    > You may be asked for your login password after running this command.
 
 6.  Run ngrok to create a tunnel from local port 3000 to a publicly accessible URL:
 
@@ -65,7 +70,7 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 
     <img width="672" src="img/ngrok.png">
 
-8.  In the Shopify Partners Dashboard, create a new app.
+8.  In the Shopify Partners Dashboard, [create a new public app](https://help.shopify.com/en/api/getting-started/authentication/public-authentication#generate-credentials-from-your-partner-dashboard).
 
     Paste the URL from ngrok into the 'App URL' field.
 
@@ -73,15 +78,29 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 
     <img width="660" src="img/create-app.png">
 
-9.  In the `app-bridge-tutorial` folder, copy the `env` file to `.env`. Paste the API key and secret from Partners Dashboard into the `.env` file.
+9. If you just created your app, you should see your app’s API key and secret now.
 
-10. Stop the app server by pressing `ctrl` + `c`. Start it again:
+	<img width="568" src="img/fresh-app.png">
+
+	If the app already has an install, you can find this information at the bottom of the 'App Setup' page.
+	
+	<img width="412" src="img/app-setup.png">
+	
+	<img width="985" src="img/app-setup-page.png">
+	
+	Copy the API key and secret.
+
+10. In the `app-bridge-tutorial` folder, copy the `env` file to `.env`, and paste the API key and secret into the `.env` file.
+
+11. Stop the app server by pressing `ctrl` + `c`. Start it again:
 
     ```
     npm run dev
     ```
 
-11. Add the HTTPS version of your ngrok forwarding URL and your store’s URL to the following placeholder and load it in a browser:
+12. If you don’t already have a development store, [create one now](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store).
+
+13. To install your app on your development store, add the HTTPS version of your ngrok forwarding URL and your development store’s URL to the following placeholder and load it in a browser:
 
     `https://YOURNGROKADDRESS.io/auth?shop=YOURSHOPIFYSTORE.myshopify.com`, ie: `https://12345.ngrok.io/auth?shop=best-dev-store.myshopify.com`.
 
@@ -98,3 +117,5 @@ If you’d prefer to work with your own app during the workshop, make sure your 
     <img width="371" src="img/console.png">
 
     You’re ready to go!
+    
+14. Just one more thing: install the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) in Firefox or Chrome.
