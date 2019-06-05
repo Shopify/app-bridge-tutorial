@@ -11,7 +11,8 @@ class MyApp extends App {
 
     this.app = createApp({
       apiKey: API_KEY,
-      shopOrigin: Cookies.get("shopOrigin")
+      shopOrigin: Cookies.get("shopOrigin"),
+      forceRedirect: true
     });
   }
 
