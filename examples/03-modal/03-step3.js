@@ -25,7 +25,8 @@ class Index extends React.Component {
         }
       }
     };
-    this.informativeModal = Modal.create(app, modalOptions);
+    var informativeModal = Modal.create(app, modalOptions);
+    this.informativeModal = informativeModal;
 
     // Subscribe to the buttons’ click events
     goodButton.subscribe(Button.Action.CLICK, function() {
