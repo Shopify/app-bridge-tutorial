@@ -23,7 +23,6 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 3.  Navigate into the `app-bridge-tutorial` folder and install dependencies using `npm`.
 
     ```shell
-    cd app-bridge-tutorial
     npm install
     ```
 
@@ -40,6 +39,21 @@ If you’d prefer to work with your own app during the workshop, make sure your 
     ```shell
     npm install -g ngrok
     ```
+
+	> Note: some Mac users may experience a permissions error when running this command, because their global `node_modules` folder may not have correct permissions.
+	> Locate the path to the global `node_modules` folder by running:
+	>
+	> 	```
+	> 	npm root -g
+	> 	```
+	> 	
+	> 	Change the owner of the global `node_modules` folder to the current user:
+	> 	
+	> 	```
+	> 	sudo chown -R $(whoami) PATH TO GLOBAL NODE_MODULES FOLDER
+	> 	```
+	> 	
+	> 	You may be asked for your login password.
 
 6.  Run ngrok to create a tunnel from local port 3000 to a publicly accessible URL:
 
@@ -82,5 +96,5 @@ If you’d prefer to work with your own app during the workshop, make sure your 
     If you open the console, you should see the App Bridge instance being logged:
 
     <img width="371" src="img/console.png">
-    
+
     You’re ready to go!
