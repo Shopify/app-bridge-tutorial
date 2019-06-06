@@ -11,10 +11,14 @@ class Index extends React.Component {
     };
     var welcomingButton = Button.create(app, buttonOptions);
 
-    // 2. Subscribe to the button’s click event
-    welcomingButton.subscribe(Button.Action.CLICK, function() {
-      console.log("welcomingButton was clicked");
-    });
+    // 2. Create a title bar and pass in the button
+    var titleBarOptions = {
+      title: "Home",
+      buttons: {
+        primary: welcomingButton
+      }
+    };
+    var titleBar = TitleBar.create(app, titleBarOptions);
   }
 
   render() {

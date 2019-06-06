@@ -11,10 +11,7 @@ class Index extends React.Component {
     };
     var welcomingButton = Button.create(app, buttonOptions);
 
-    // 2. Subscribe to the button’s click event
-    welcomingButton.subscribe(Button.Action.CLICK, welcomingButtonCallback);
-
-    // 3. Create a title bar and pass in the button
+    // 2. Create a title bar and pass in the button
     var titleBarOptions = {
       title: "Home",
       buttons: {
@@ -23,8 +20,11 @@ class Index extends React.Component {
     };
     var titleBar = TitleBar.create(app, titleBarOptions);
 
-    // 4. Update the button’s options
-    function welcomingButtonCallback() {
+    // 3. Subscribe to the button’s click event
+    welcomingButton.subscribe(Button.Action.CLICK, function() {
+      console.log("welcomingButton was clicked");
+
+      // 4. Update the button’s options
       welcomingButton.set({
         label: "Thinking...",
         disabled: true
@@ -44,7 +44,7 @@ class Index extends React.Component {
           disabled: false
         });
       }, 1000);
-    }
+    });
   }
 
   render() {
