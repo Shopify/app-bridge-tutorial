@@ -1,4 +1,5 @@
 import { Layout, Page, Card } from "@shopify/polaris";
+import { Features, Group } from "@shopify/app-bridge/actions";
 
 class Index extends React.Component {
   constructor(props) {

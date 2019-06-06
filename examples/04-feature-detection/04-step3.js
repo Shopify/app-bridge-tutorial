@@ -1,5 +1,5 @@
 import { Layout, Page, Card } from "@shopify/polaris";
-import { Group } from "@shopify/app-bridge/actions";
+import { Features, Group } from "@shopify/app-bridge/actions";
 
 class Index extends React.Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class Index extends React.Component {
     var app = this.props.app;
     var setState = this.setState.bind(this);
 
+    // 1. What context are we running in?
     app.getState("context").then(function(context) {
       console.log("We are running in the", context, "context.");
       setState(function() {
@@ -21,12 +22,23 @@ class Index extends React.Component {
       });
     });
 
-    // 3. Filter results to a single action group
-    app.featuresAvailable(Group.Cart).then(function(featureState) {
+    // 2. What features are available to us in this context?
+    app.featuresAvailable().then(function(featureState) {
       console.log(featureState);
       setState(function() {
         return { features: JSON.stringify(featureState, null, 2) };
       });
+    });
+
+    // 3. Request an unavailable feature
+    var featureRequest = Features.create(app);
+
+    features.subscribe(Features.Action.REQUEST_UPDATE, function(response) {
+      console.log(response);
+    });
+
+    features.dispatch(Features.Action.REQUEST, {
+      feature: Group.Scanner
     });
   }
 
