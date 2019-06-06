@@ -1,5 +1,5 @@
 import { Layout, Page, Card } from "@shopify/polaris";
-import { Button } from "@shopify/app-bridge/actions";
+import { TitleBar, Button } from "@shopify/app-bridge/actions";
 
 class Index extends React.Component {
   componentDidMount() {

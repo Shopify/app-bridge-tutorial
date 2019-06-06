@@ -5,6 +5,7 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.openModal = this.openModal.bind(this);
+    this.getAppState = this.getAppState.bind(this);
   }
 
   componentDidMount() {
@@ -14,12 +15,9 @@ class Index extends React.Component {
     var badButton = Button.create(app, { label: "I don’t like it." });
 
     var modalOptions = {
-      title: "Iframe modal",
-
-      // Change the modal create payload to use an iframe.
-      path: "/modal",
-      size: Modal.Size.Medium,
-
+      title: "Informative modal",
+      message:
+        "Here’s some information I think you should know. What do you think?",
       footer: {
         buttons: {
           primary: goodButton,
@@ -27,8 +25,7 @@ class Index extends React.Component {
         }
       }
     };
-    var informativeModal = Modal.create(app, modalOptions);
-    this.informativeModal = informativeModal;
+    this.informativeModal = Modal.create(app, modalOptions);
 
     goodButton.subscribe(Button.Action.CLICK, function() {
       console.log("They liked the iframe.");
@@ -45,6 +42,16 @@ class Index extends React.Component {
     this.informativeModal.dispatch(Modal.Action.OPEN);
   }
 
+  // Log the app state
+  getAppState() {
+    var app = this.props.app;
+    var setState = this.setState.bind(this);
+
+    app.getState().then(function(appState) {
+      console.log("appState:", appState);
+    });
+  }
+
   render() {
     return (
       <Page title="App Bridge Tutorial">
@@ -55,6 +62,10 @@ class Index extends React.Component {
               primaryFooterAction={{
                 content: "Show me an iframe",
                 onAction: this.openModal
+              }}
+              secondaryFooterAction={{
+                content: "getState",
+                onAction: this.getAppState
               }}
             >
               <p>Welcome to the App Bridge workshop at Shopify Unite 2019!</p>

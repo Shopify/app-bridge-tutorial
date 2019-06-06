@@ -33,11 +33,13 @@ class Index extends React.Component {
     // 3. Request an unavailable feature
     var featureRequest = Features.create(app);
 
-    features.subscribe(Features.Action.REQUEST_UPDATE, function(response) {
+    featureRequest.subscribe(Features.Action.REQUEST_UPDATE, function(
+      response
+    ) {
       console.log(response);
     });
 
-    features.dispatch(Features.Action.REQUEST, {
+    featureRequest.dispatch(Features.Action.REQUEST, {
       feature: Group.Scanner
     });
   }
