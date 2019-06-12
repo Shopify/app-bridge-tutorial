@@ -28,7 +28,7 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.js$/, // files ending with .js
+        test: /\.(js|jsx)$/, // files ending with .js
         exclude: /node_modules/, // exclude the node_modules directory
         loader: "babel-loader" // use this (babel-core) loader
       }

@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Shopify/shopify-demo-app-node-react#readme",
   "dependencies": {
-    "@shopify/app-bridge": "^1.5.4",
+    "@shopify/app-bridge": "^1.6.5-alpha.1",
     "@shopify/koa-shopify-auth": "^3.1.25",
     "@shopify/polaris": "^3.10.0",
     "dotenv": "^6.2.0",
@@ -38,6 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
     "eslint": "^5.16.0",
