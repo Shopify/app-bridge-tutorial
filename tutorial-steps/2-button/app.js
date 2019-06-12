@@ -1,24 +1,25 @@
-import createApp from "@shopify/app-bridge";
-import { TitleBar, Button } from "@shopify/app-bridge/actions";
+/*
 
-import Cookies from "js-cookie";
-const shopOrigin = Cookies.get("shopOrigin");
+  App root
 
-const appBridgeClient = createApp({
-  apiKey: SHOPIFY_API_KEY,
-  shopOrigin: shopOrigin,
-  forceRedirect: true
-});
+  - mounts React
+  - imports Polaris styles
 
-console.log(appBridgeClient);
+*/
+import React from "react";
+import ReactDOM from "react-dom";
+import { AppProvider } from "@shopify/polaris";
 
-const newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
+import "@shopify/polaris/styles.css";
 
-newTodoButton.subscribe(Button.Action.CLICK, function() {
-  console.log("clicked!");
-});
+import AppPage from "./AppPage";
 
-const titleBar = TitleBar.create(appBridgeClient, {
-  title: "Home",
-  buttons: { primary: newTodoButton }
-});
+const rootElement = document.createElement("div");
+document.querySelector("body").appendChild(rootElement);
+
+ReactDOM.render(
+  <AppProvider>
+    <AppPage />
+  </AppProvider>,
+  rootElement
+);

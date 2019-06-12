@@ -14,6 +14,9 @@ import NewTodoForm from "./NewTodoForm";
 import TodoList from "./TodoList";
 
 export default function AppPage() {
+  const [isNewTodoFormActive, setNewTodoForm] = useState(false);
+  const [todoItems, setTodoItems] = useState([]);
+
   const appBridgeClient = createApp({
     apiKey: SHOPIFY_API_KEY,
     shopOrigin: shopOrigin,
@@ -31,19 +34,15 @@ export default function AppPage() {
     buttons: { primary: newTodoButton }
   });
 
-  function submitNewTodoForm(formData) {
-    console.log(formData);
+  function submitNewTodoForm(newTodoItem) {
+    const newTodoList = [newTodoItem, ...todoItems];
+    setTodoItems(newTodoList);
+    setNewTodoForm(false);
   }
-
-  // ********************************************************
-
-  const [todoListItems, setTodoListItems] = useState([]);
-
-  const [isNewTodoFormActive, setNewTodoForm] = useState(false);
 
   if (isNewTodoFormActive) {
     return <NewTodoForm onSubmit={submitNewTodoForm} />;
   } else {
-    return <TodoList todoListItems={todoListItems} />;
+    return <TodoList todoListItems={todoItems} />;
   }
 }

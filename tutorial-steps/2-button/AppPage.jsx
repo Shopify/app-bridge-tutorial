@@ -10,13 +10,9 @@ import { TitleBar, Button } from "@shopify/app-bridge/actions";
 import Cookies from "js-cookie";
 const shopOrigin = Cookies.get("shopOrigin");
 
-import NewTodoForm from "./NewTodoForm";
 import TodoList from "./TodoList";
 
 export default function AppPage() {
-  const [isNewTodoFormActive, setNewTodoForm] = useState(false);
-  const [todoItems, setTodoItems] = useState([]);
-
   const appBridgeClient = createApp({
     apiKey: SHOPIFY_API_KEY,
     shopOrigin: shopOrigin,
@@ -26,7 +22,7 @@ export default function AppPage() {
   const newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
 
   newTodoButton.subscribe(Button.Action.CLICK, function() {
-    setNewTodoForm(true);
+    console.log("clicked!");
   });
 
   const titleBar = TitleBar.create(appBridgeClient, {
@@ -34,15 +30,7 @@ export default function AppPage() {
     buttons: { primary: newTodoButton }
   });
 
-  function submitNewTodoForm(newTodoItem) {
-    const newTodoList = [newTodoItem, ...todoItems];
-    setTodoItems(newTodoList);
-    setNewTodoForm(false);
-  }
+  // ********************************************************
 
-  if (isNewTodoFormActive) {
-    return <NewTodoForm onSubmit={submitNewTodoForm} />;
-  } else {
-    return <TodoList todoListItems={todoItems} />;
-  }
+  return <TodoList todoListItems={[]} />;
 }
