@@ -19,12 +19,16 @@ import {
 export default function NewTodoForm(props) {
   const [name, setName] = useState("");
 
+  function submitForm() {
+    props.onSubmit({ name });
+  }
+
   return (
     <Page title="Create a new Todo">
       <Layout>
         <Layout.Section>
           <Card sectioned>
-            <Form onSubmit={() => props.onSubmit({ name })}>
+            <Form onSubmit={submitForm}>
               <FormLayout>
                 <TextField onChange={name => setName(name)} value={name} />
                 <Button submit>Create</Button>
@@ -35,4 +39,3 @@ export default function NewTodoForm(props) {
       </Layout>
     </Page>
   );
-}
