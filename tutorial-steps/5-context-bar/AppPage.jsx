@@ -45,6 +45,7 @@ export default function AppPage() {
   }
 
   if (isNewTodoFormActive) {
+    newTodoButton.set({ disabled: true });
     return (
       <NewTodoForm
         appBridgeClient={appBridgeClient}

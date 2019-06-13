@@ -39,4 +39,3 @@ export default function NewTodoForm(props) {
       </Layout>
     </Page>
   );
-}

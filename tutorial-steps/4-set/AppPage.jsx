@@ -42,7 +42,6 @@ export default function AppPage() {
 
   if (isNewTodoFormActive) {
     newTodoButton.set({ disabled: true });
-
     return <NewTodoForm onSubmit={submitNewTodoForm} />;
   } else {
     return <TodoList todoListItems={todoItems} />;
