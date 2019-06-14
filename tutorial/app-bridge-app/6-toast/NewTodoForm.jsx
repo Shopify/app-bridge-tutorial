@@ -5,7 +5,7 @@
   Simple form with one text field.
 
 */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Page,
   Layout,
@@ -21,22 +21,25 @@ export default function NewTodoForm(props) {
   const appBridgeClient = props.appBridgeClient;
   const [name, setName] = useState("");
 
+  let contextBar;
+  useEffect(function() {
+    contextBar = ContextualSaveBar.create(appBridgeClient);
+    contextBar.dispatch(ContextualSaveBar.Action.SHOW);
+
+    contextBar.subscribe(ContextualSaveBar.Action.DISCARD, function() {
+      props.onDiscard();
+      contextBar.dispatch(ContextualSaveBar.Action.HIDE);
+    });
+
+    contextBar.subscribe(ContextualSaveBar.Action.SAVE, function() {
+      submitForm();
+    });
+  }, false);
+
   function submitForm() {
     props.onSubmit({ name });
     contextBar.dispatch(ContextualSaveBar.Action.HIDE);
   }
-
-  const contextBar = ContextualSaveBar.create(appBridgeClient);
-  contextBar.dispatch(ContextualSaveBar.Action.SHOW);
-
-  contextBar.subscribe(ContextualSaveBar.Action.DISCARD, function() {
-    props.onDiscard();
-    contextBar.dispatch(ContextualSaveBar.Action.HIDE);
-  });
-
-  contextBar.subscribe(ContextualSaveBar.Action.SAVE, function() {
-    submitForm();
-  });
 
   return (
     <Page title="Create a new Todo">

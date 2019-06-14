@@ -3,7 +3,7 @@
   App Page
 
 */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import createApp from "@shopify/app-bridge";
 import { TitleBar, Button } from "@shopify/app-bridge/actions";
 
@@ -13,26 +13,29 @@ const shopOrigin = Cookies.get("shopOrigin");
 import NewTodoForm from "./NewTodoForm";
 import TodoList from "./TodoList";
 
+const appBridgeClient = createApp({
+  apiKey: SHOPIFY_API_KEY,
+  shopOrigin: shopOrigin,
+  forceRedirect: true
+});
+
 export default function AppPage() {
   const [isNewTodoFormActive, setNewTodoForm] = useState(false);
   const [todoItems, setTodoItems] = useState([]);
 
-  const appBridgeClient = createApp({
-    apiKey: SHOPIFY_API_KEY,
-    shopOrigin: shopOrigin,
-    forceRedirect: true
-  });
+  let newTodoButton;
+  useEffect(function() {
+    newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
 
-  const newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
+    newTodoButton.subscribe(Button.Action.CLICK, function() {
+      setNewTodoForm(true);
+    });
 
-  newTodoButton.subscribe(Button.Action.CLICK, function() {
-    setNewTodoForm(true);
-  });
-
-  const titleBar = TitleBar.create(appBridgeClient, {
-    title: "Home",
-    buttons: { primary: newTodoButton }
-  });
+    const titleBar = TitleBar.create(appBridgeClient, {
+      title: "Home",
+      buttons: { primary: newTodoButton }
+    });
+  }, false);
 
   function submitNewTodoForm(newTodoItem) {
     const newTodoList = [newTodoItem, ...todoItems];

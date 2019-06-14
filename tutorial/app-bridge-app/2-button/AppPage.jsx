@@ -3,7 +3,7 @@
   App Page
 
 */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import createApp from "@shopify/app-bridge";
 import { TitleBar, Button } from "@shopify/app-bridge/actions";
 
@@ -12,25 +12,25 @@ const shopOrigin = Cookies.get("shopOrigin");
 
 import TodoList from "./TodoList";
 
+const appBridgeClient = createApp({
+  apiKey: SHOPIFY_API_KEY,
+  shopOrigin: shopOrigin,
+  forceRedirect: true
+});
+
 export default function AppPage() {
-  const appBridgeClient = createApp({
-    apiKey: SHOPIFY_API_KEY,
-    shopOrigin: shopOrigin,
-    forceRedirect: true
-  });
+  useEffect(function() {
+    const newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
 
-  const newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
+    newTodoButton.subscribe(Button.Action.CLICK, function() {
+      console.log("clicked!");
+    });
 
-  newTodoButton.subscribe(Button.Action.CLICK, function() {
-    console.log("clicked!");
-  });
-
-  const titleBar = TitleBar.create(appBridgeClient, {
-    title: "Home",
-    buttons: { primary: newTodoButton }
-  });
-
-  // ********************************************************
+    const titleBar = TitleBar.create(appBridgeClient, {
+      title: "Home",
+      buttons: { primary: newTodoButton }
+    });
+  }, false);
 
   return <TodoList todoListItems={[]} />;
 }
