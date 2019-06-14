@@ -26,17 +26,7 @@ If you’d prefer to work with your own app during the workshop, make sure your 
     npm install
     ```
 
-4.  Run the app locally:
-
-    ```
-    npm run dev
-    ```
-
-    Visit <a href="http://localhost:3000">http://localhost:3000</a> to see the app. The app is not expecting to run like this, so you’ll see an error message:
-
-    <img width="495" src="img/app-local.png">
-
-5.  Install [ngrok](https://ngrok.com). Using npm:
+4.  Install [ngrok](https://ngrok.com). Using npm:
 
     ```
     npm install -g ngrok
@@ -60,17 +50,17 @@ If you’d prefer to work with your own app during the workshop, make sure your 
     >
     > You may be asked for your login password after running this command.
 
-6.  Run ngrok to create a tunnel from local port 3000 to a publicly accessible URL:
+5.  Run ngrok to create a tunnel from local port 3000 to a publicly accessible URL:
 
     ```shell
     ngrok http 3000
     ```
 
-7.  Copy the HTTPS forwarding URL from ngrok:
+6.  Copy the HTTPS forwarding URL from ngrok:
 
     <img width="672" src="img/ngrok.png">
 
-8.  In the Shopify Partners Dashboard, [create a new public app](https://help.shopify.com/en/api/getting-started/authentication/public-authentication#generate-credentials-from-your-partner-dashboard).
+7.  In the Shopify Partners Dashboard, [create a new public app](https://help.shopify.com/en/api/getting-started/authentication/public-authentication#generate-credentials-from-your-partner-dashboard).
 
     Paste the URL from ngrok into the 'App URL' field.
 
@@ -78,7 +68,7 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 
     <img width="660" src="img/create-app.png">
 
-9. If you just created your app, you should see your app’s API key and secret now.
+8. If you just created your app, you should see your app’s API key and secret now.
 
 	<img width="568" src="img/fresh-app.png">
 
@@ -90,17 +80,17 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 	
 	Copy the API key and secret.
 
-10. In the `app-bridge-tutorial` folder, copy the `env` file to `.env`, and paste the API key and secret into the `.env` file.
+9. In the `app-bridge-tutorial` folder, copy the `env` file to `.env`, and paste the API key and secret into the `.env` file.
 
-11. Stop the app server by pressing `ctrl` + `c`. Start it again:
+10. Run the app:
 
     ```
     npm run dev
     ```
 
-12. If you don’t already have a development store, [create one now](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store).
+11. If you don’t already have a development store, [create one now](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store).
 
-13. To install your app on your development store, add the HTTPS version of your ngrok forwarding URL and your development store’s URL to the following placeholder and load it in a browser:
+12. To install your app on your development store, add the HTTPS version of your ngrok forwarding URL and your development store’s URL to the following placeholder and load it in a browser:
 
     `https://YOURNGROKADDRESS.io/auth?shop=YOURSHOPIFYSTORE.myshopify.com`, ie: `https://12345.ngrok.io/auth?shop=best-dev-store.myshopify.com`.
 
@@ -118,4 +108,4 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 
     You’re ready to go!
     
-14. Just one more thing: install the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) in Firefox or Chrome.
+13. Just one more thing: install the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) in Firefox or Chrome.

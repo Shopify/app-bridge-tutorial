@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development node server.js",
-    "webpack": "webpack --config webpack.config.js"
+    "dev": "NODE_ENV=development node server.js"
   },
   "repository": {
     "type": "git",
