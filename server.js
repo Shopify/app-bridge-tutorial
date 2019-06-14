@@ -1,21 +1,23 @@
 require("isomorphic-fetch");
 const Koa = require("koa");
-const next = require("next");
+const path = require("path");
+const static = require("koa-static");
+const mount = require("koa-mount");
+
 const { default: createShopifyAuth } = require("@shopify/koa-shopify-auth");
-const dotenv = require("dotenv");
 const { verifyRequest } = require("@shopify/koa-shopify-auth");
 const session = require("koa-session");
 
+const dotenv = require("dotenv");
 dotenv.config();
 
 const port = parseInt(process.env.PORT, 10) || 3000;
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handle = app.getRequestHandler();
 
 const { SHOPIFY_API_SECRET_KEY, SHOPIFY_API_KEY } = process.env;
 
-app.prepare().then(() => {
+buildServer();
+
+async function buildServer() {
   const server = new Koa();
   server.use(session(server));
   server.keys = [SHOPIFY_API_SECRET_KEY];
@@ -24,7 +26,7 @@ app.prepare().then(() => {
     createShopifyAuth({
       apiKey: SHOPIFY_API_KEY,
       secret: SHOPIFY_API_SECRET_KEY,
-      scopes: ["read_products"],
+      scopes: ["read_products", "read_orders"],
       afterAuth(ctx) {
         const { shop, accessToken } = ctx.session;
         ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
@@ -34,13 +36,35 @@ app.prepare().then(() => {
   );
 
   server.use(verifyRequest());
-  server.use(async ctx => {
-    await handle(ctx.req, ctx.res);
-    ctx.respond = false;
-    ctx.res.statusCode = 200;
-  });
+
+  if (process.env.NODE_ENV === "production") {
+    server.use(mount("/", static(__dirname + "/public")));
+  } else {
+    await webpackMiddleware(server);
+  }
 
   server.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
-});
+}
+
+// serve files from webpack, in memory
+async function webpackMiddleware(server) {
+  const koaWebpack = require("koa-webpack");
+  const config = require("./webpack.config.js");
+
+  const middleware = await koaWebpack({
+    config,
+    hotClient: false
+  });
+  server.use(middleware);
+
+  // to access in-memory filesystem provided by html-webpack-plugin
+  server.use(async ctx => {
+    const filename = path.resolve(config.output.path, "index.html");
+    ctx.response.type = "html";
+    ctx.response.body = middleware.devMiddleware.fileSystem.createReadStream(
+      filename
+    );
+  });
+}
