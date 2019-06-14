@@ -12,7 +12,7 @@ const shopOrigin = Cookies.get("shopOrigin");
 
 import TodoList from "./TodoList";
 
-const appBridgeClient = createApp({
+const app = createApp({
   apiKey: SHOPIFY_API_KEY,
   shopOrigin: shopOrigin,
   forceRedirect: true
@@ -20,7 +20,7 @@ const appBridgeClient = createApp({
 
 export default function AppPage() {
   useEffect(function() {
-    const titleBar = TitleBar.create(appBridgeClient, {
+    const titleBar = TitleBar.create(app, {
       title: "Home"
     });
   }, false);

@@ -11,14 +11,14 @@ const shopOrigin = Cookies.get("shopOrigin");
 
 import TodoList from "./TodoList";
 
-const appBridgeClient = createApp({
+const app = createApp({
   apiKey: SHOPIFY_API_KEY,
   shopOrigin: shopOrigin,
   forceRedirect: true
 });
 
 export default function AppPage() {
-  console.log("appBridgeClient:", appBridgeClient);
+  console.log("app:", app);
 
   return <TodoList todoListItems={[]} />;
 }

@@ -13,7 +13,7 @@ const shopOrigin = Cookies.get("shopOrigin");
 import NewTodoForm from "./NewTodoForm";
 import TodoList from "./TodoList";
 
-const appBridgeClient = createApp({
+const app = createApp({
   apiKey: SHOPIFY_API_KEY,
   shopOrigin: shopOrigin,
   forceRedirect: true
@@ -25,13 +25,13 @@ export default function AppPage() {
 
   let newTodoButton;
   useEffect(function() {
-    newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
+    newTodoButton = Button.create(app, { label: "New Todo" });
 
     newTodoButton.subscribe(Button.Action.CLICK, function() {
       setNewTodoForm(true);
     });
 
-    const titleBar = TitleBar.create(appBridgeClient, {
+    const titleBar = TitleBar.create(app, {
       title: "Home",
       buttons: { primary: newTodoButton }
     });
@@ -42,7 +42,7 @@ export default function AppPage() {
     setTodoItems(newTodoList);
     setNewTodoForm(false);
 
-    const confirmNewTodoToast = Toast.create(appBridgeClient, {
+    const confirmNewTodoToast = Toast.create(app, {
       message: "Todo saved."
     });
     confirmNewTodoToast.dispatch(Toast.Action.SHOW);
@@ -56,7 +56,7 @@ export default function AppPage() {
     newTodoButton.set({ disabled: true });
     return (
       <NewTodoForm
-        appBridgeClient={appBridgeClient}
+        app={app}
         onSubmit={submitNewTodoForm}
         onDiscard={discardNewTodoForm}
       />

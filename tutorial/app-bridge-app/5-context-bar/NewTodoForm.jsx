@@ -18,12 +18,12 @@ import {
 import { ContextualSaveBar } from "@shopify/app-bridge/actions";
 
 export default function NewTodoForm(props) {
-  const appBridgeClient = props.appBridgeClient;
+  const app = props.app;
   const [name, setName] = useState("");
 
   let contextBar;
   useEffect(function() {
-    contextBar = ContextualSaveBar.create(appBridgeClient);
+    contextBar = ContextualSaveBar.create(app);
     contextBar.dispatch(ContextualSaveBar.Action.SHOW);
 
     contextBar.subscribe(ContextualSaveBar.Action.DISCARD, function() {

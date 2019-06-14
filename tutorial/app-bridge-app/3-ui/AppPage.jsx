@@ -13,7 +13,7 @@ const shopOrigin = Cookies.get("shopOrigin");
 import NewTodoForm from "./NewTodoForm";
 import TodoList from "./TodoList";
 
-const appBridgeClient = createApp({
+const app = createApp({
   apiKey: SHOPIFY_API_KEY,
   shopOrigin: shopOrigin,
   forceRedirect: true
@@ -24,13 +24,13 @@ export default function AppPage() {
   const [todoItems, setTodoItems] = useState([]);
 
   useEffect(function() {
-    const newTodoButton = Button.create(appBridgeClient, { label: "New Todo" });
+    const newTodoButton = Button.create(app, { label: "New Todo" });
 
     newTodoButton.subscribe(Button.Action.CLICK, function() {
       setNewTodoForm(true);
     });
 
-    const titleBar = TitleBar.create(appBridgeClient, {
+    const titleBar = TitleBar.create(app, {
       title: "Home",
       buttons: { primary: newTodoButton }
     });
