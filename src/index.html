@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>App Bridge Tutorial</title>
+  </head>
+  <body>
+    <div class="container is-loading" id="container">
+      <div class="view hide-when-inactive is-active" id="listview">
+        <h2>Todo List</h2>
+        <div class="emptystate hide-when-inactive is-active" id="emptystate">
+          <p>No todos! Try creating one.</p>
+        </div>
+        <ul class="todolist hide-when-inactive" id="todolist">
+          <li class="todolist-item">
+            <p>Hi I am a todo list item</p>
+          </li>
+        </ul>
+      </div>
+      <div class="view hide-when-inactive is-active" id="newtodoview">
+        <h2>New Todo</h2>
+        <div class="form">
+          <div class="form-item">
+            <label for="new-todo-name"></label>
+            <input id="new-todo-name" type="text" />
+          </div>
+          <div class="form-item">
+            <button onclick="">Create todo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

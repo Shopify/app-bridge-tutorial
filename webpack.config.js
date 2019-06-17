@@ -24,8 +24,17 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, "node_modules"),
-        use: ["style-loader", "css-loader"]
+        // include: path.resolve(__dirname, "node_modules"),
+        use: [
+          {
+            loader: "style-loader",
+            options: {
+              insertAt: "top",
+              singleton: true
+            }
+          },
+          "css-loader"
+        ]
       },
       {
         test: /\.(js|jsx)$/, // files ending with .js
@@ -36,7 +45,7 @@ module.exports = {
   },
   plugins: [
     // Create the dist HTML file with variables defined in src/config
-    new HtmlWebpackPlugin({ title: "App Bridge Tutorial" }),
+    new HtmlWebpackPlugin({ template: "src/index.html" }),
 
     // Sets variables to be usable in the JS
     new webpack.DefinePlugin({

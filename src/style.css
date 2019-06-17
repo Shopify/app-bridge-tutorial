@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+div {
+  margin: 1rem 0;
+}
+
+.container {
+  padding: 0 1rem;
+}
+.container.is-loading {
+  display: none;
+}
+
+.hide-when-inactive {
+  display: none;
+}
+.hide-when-inactive.is-active {
+  display: block;
+}
+
+.todolist {
+  margin: 1rem 0;
+}
+.todolist-item {
+  margin-left: 1rem;
+}
+
+/* .form {} */
+
+.form-item {
+  margin: 1rem 0;
+}
