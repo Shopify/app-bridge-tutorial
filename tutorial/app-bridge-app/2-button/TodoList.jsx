@@ -2,34 +2,50 @@
 
   TodoList
 
-  List todoListItems.
+  Lists todoListItems.
 
 */
 import React from "react";
-import { Page, Layout, Card } from "@shopify/polaris";
+import { Page, Layout, Card, Stack, Checkbox } from "@shopify/polaris";
 
 export default function TodoList(props) {
   const todoListItems = props.todoListItems || [];
 
-  let todosMarkup;
-  if (todoListItems.length) {
-    todosMarkup = (
-      <Card sectioned>
-        <ul>
-          {todoListItems.map(function(todo, index) {
-            return <li key={index}>{todo.name}</li>;
-          })}
-        </ul>
-      </Card>
+  function renderEmptyState() {
+    return <p>No todos yet. Create one!</p>;
+  }
+
+  function renderTodoList() {
+    return (
+      <Stack vertical>
+        {todoListItems.map(function(todo, index) {
+          return (
+            <Checkbox
+              key={index}
+              checked={todo.complete}
+              onChange={() => props.toggleTodoComplete(index)}
+              label={todo.name}
+            />
+          );
+        })}
+      </Stack>
     );
-  } else {
-    todosMarkup = <Card sectioned>No todos yet. Create one!</Card>;
   }
 
   return (
     <Page title="Todos">
       <Layout>
-        <Layout.Section>{todosMarkup}</Layout.Section>
+        <Layout.Section>
+          <Card
+            sectioned
+            primaryFooterAction={{
+              content: "Create todo",
+              onAction: props.createTodoAction
+            }}
+          >
+            {todoListItems.length ? renderTodoList() : renderEmptyState()}
+          </Card>
+        </Layout.Section>
       </Layout>
     </Page>
   );

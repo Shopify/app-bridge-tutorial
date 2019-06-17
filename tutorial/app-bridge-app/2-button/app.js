@@ -1,11 +1,3 @@
-/*
-
-  App root
-
-  - mounts React
-  - imports Polaris styles
-
-*/
 import React from "react";
 import ReactDOM from "react-dom";
 import { AppProvider } from "@shopify/polaris";
