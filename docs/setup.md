@@ -100,12 +100,7 @@ If you’d prefer to work with your own app during the workshop, make sure your 
 
     The app should now load and redirect to Shopify Admin. You should land on the app, embedded:
 
-    <img width="732" src="img/app-embedded.png">
+    <img width="669" src="img/app-embedded.png">
 
-    If you open the console, you should see the App Bridge instance being logged:
-
-    <img width="371" src="img/console.png">
-
-    You’re ready to go!
     
 13. Just one more thing: install the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) in Firefox or Chrome.
