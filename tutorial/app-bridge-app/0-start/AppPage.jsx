@@ -2,23 +2,52 @@
 
   App Page
 
+  App container component.
+
 */
-import React from "react";
-import createApp from "@shopify/app-bridge";
+import React, { useState } from "react";
 
-import Cookies from "js-cookie";
-const shopOrigin = Cookies.get("shopOrigin");
-
+import NewTodoForm from "./NewTodoForm";
 import TodoList from "./TodoList";
 
-const app = createApp({
-  apiKey: SHOPIFY_API_KEY,
-  shopOrigin: shopOrigin,
-  forceRedirect: true
-});
-
 export default function AppPage() {
-  console.log("app:", app);
+  const [isNewTodoFormActive, setNewTodoFormActive] = useState(false);
+  const [todoItems, setTodoItems] = useState([]);
 
-  return <TodoList todoListItems={[]} />;
+  function openNewTodoForm() {
+    setNewTodoFormActive(true);
+  }
+
+  function closeNewTodoForm() {
+    setNewTodoFormActive(false);
+  }
+
+  function submitNewTodoForm(newTodoItem) {
+    const newTodoList = [newTodoItem, ...todoItems];
+    setTodoItems(newTodoList);
+    setNewTodoFormActive(false);
+  }
+
+  function toggleTodoComplete(index) {
+    const newTodoList = [...todoItems];
+    newTodoList[index].complete = !newTodoList[index].complete;
+    setTodoItems(newTodoList);
+  }
+
+  if (isNewTodoFormActive) {
+    return (
+      <NewTodoForm
+        onSubmitForm={submitNewTodoForm}
+        onDiscard={closeNewTodoForm}
+      />
+    );
+  } else {
+    return (
+      <TodoList
+        todoListItems={todoItems}
+        createTodoAction={openNewTodoForm}
+        toggleTodoComplete={toggleTodoComplete}
+      />
+    );
+  }
 }

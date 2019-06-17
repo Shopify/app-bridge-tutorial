@@ -7,7 +7,7 @@
 */
 import React, { useState, useEffect } from "react";
 import createApp from "@shopify/app-bridge";
-import { TitleBar } from "@shopify/app-bridge/actions";
+import { TitleBar, Button, Toast } from "@shopify/app-bridge/actions";
 import Cookies from "js-cookie";
 
 import NewTodoForm from "./NewTodoForm";
@@ -19,12 +19,23 @@ const app = createApp({
   forceRedirect: true
 });
 
+const newTodoButton = Button.create(app, { label: "Create todo" });
+
+const titleBar = TitleBar.create(app, {
+  title: "Home",
+  buttons: { primary: newTodoButton }
+});
+
+const confirmNewTodoToast = Toast.create(app, { message: "Todo saved." });
+
 export default function AppPage() {
   const [isNewTodoFormActive, setNewTodoFormActive] = useState(false);
   const [todoItems, setTodoItems] = useState([]);
 
   useEffect(function() {
-    const titleBar = TitleBar.create(app, { title: "Home" });
+    newTodoButton.subscribe(Button.Action.CLICK, function() {
+      openNewTodoForm();
+    });
   }, false);
 
   function openNewTodoForm() {
@@ -39,6 +50,7 @@ export default function AppPage() {
     const newTodoList = [newTodoItem, ...todoItems];
     setTodoItems(newTodoList);
     setNewTodoFormActive(false);
+    confirmNewTodoToast.dispatch(Toast.Action.SHOW);
   }
 
   function toggleTodoComplete(index) {
@@ -48,6 +60,7 @@ export default function AppPage() {
   }
 
   if (isNewTodoFormActive) {
+    newTodoButton.set({ disabled: true });
     return (
       <NewTodoForm
         onSubmitForm={submitNewTodoForm}
@@ -55,6 +68,7 @@ export default function AppPage() {
       />
     );
   } else {
+    newTodoButton.set({ disabled: false });
     return (
       <TodoList
         todoListItems={todoItems}
