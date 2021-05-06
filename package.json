@@ -31,7 +31,7 @@
     "koa-views": "^6.2.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
